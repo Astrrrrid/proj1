@@ -1,8 +1,8 @@
 """courses table
 
-Revision ID: 62785f1f88aa
+Revision ID: e68b56556a6a
 Revises: 
-Create Date: 2020-04-01 14:59:36.837910
+Create Date: 2020-04-03 19:35:14.904643
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '62785f1f88aa'
+revision = 'e68b56556a6a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,7 +29,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_course_Classroom'), 'course', ['Classroom'], unique=False)
-    op.create_index(op.f('ix_course_Course_code'), 'course', ['Course_code'], unique=True)
+    op.create_index(op.f('ix_course_Course_code'), 'course', ['Course_code'], unique=False)
     # ### end Alembic commands ###
 
 
