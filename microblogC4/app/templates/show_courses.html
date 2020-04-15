@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Hi, this is our 2020Spring course schedule</h1>
+<h1>This is our 2020Spring course schedule by clicking show courses</h1>
 <table>
     <tr>
         <th>Classroom</th>
@@ -14,7 +14,12 @@
     </tr>
     {% for row in myDat %}
     <tr>
-        <td>{{ row.Classroom }} </td><td>{{ row.CourseCode }}</td><td>{{ row.CourseTitle }}</td><td>{{ row.Cr }}</td><td>{{ row.Instructor}}</td><td>{{ row.CourseFormat}}</td>
+        <td>{{ row.Classroom }} </td>
+        <td>{{ row.CourseCode }}</td>
+        <td>{{ row.CourseTitle }}</td>
+        <td>{{ row.Cr }}</td>
+        <td>{{ row.Instructor}}</td>
+        <td>{{ row.CourseFormat}}</td>
     </tr>
 
 

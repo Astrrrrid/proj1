@@ -14,12 +14,13 @@ def index():
     Courses = Course.query.all()
     return render_template('index.html', title='Home',  myDat=Courses)
 
-
 @app.route('/show_courses/')
 def show_courses():
-    Courses = models.Course.query.all()
-    return render_template('show_courses.html', title='Course Schedule',  myDat=Courses) #return hello""
+    Courses = Course.query.all()
+    return render_template('index.html', title='Home',  myDat=Courses)
 
 @app.route('/upload_spreasheet/')
 def upload_spreasheet():
     return Courses
+
+
