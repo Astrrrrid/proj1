@@ -11,6 +11,9 @@ from flask import request
 
 from werkzeug.utils import secure_filename
 
+app.config["FILE_UPLOADS"] = "/project1/microblogC4/app/static/files/uploads"
+
+
 def getExcel(path):
     return json.load(open("/Users/Astrid/project1/test.json", "r"))
 
@@ -31,6 +34,20 @@ def show_courses():
 def upload_spreasheet():
     return Courses
 
+
+def allowed_table(filename):
+
+    if not "." in filename:
+        return False
+
+    ext = filename.rsplit(".", 1)[1]
+
+    if ext.upper() == "XLSX":
+        return True
+    else:
+        return False
+
+
 @app.route('/upload')
 def upload_file2():
    return render_template('upload.html')
@@ -41,8 +58,18 @@ def upload_file():
    if request.method == 'POST':
       if request.files:
         f = request.files['file']
-        print("table saved")
-        f.save(secure_filename(f.filename))
-        return redirect(request.url)
-        #return "kk I gotchu yall"
+        if f.filename == "":
+            print("No filename")
+            return redirect(request.url)
+
+        if allowed_table(f.filename):
+            ffilename = secure_filename(f.filename)
+        
+            f.save(os.path.join(app.config["FILE_UPLOADS"], ffilename))
+            print("table saved")
+            return redirect(request.url)
+            #return "kk I gotchu yall"
+        else:
+            print("pls upload a correct file")
+            return redirect(request.url)
    return render_template('upload.html')
