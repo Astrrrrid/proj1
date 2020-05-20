@@ -22,7 +22,7 @@ class Course(db.Model):
 class Student(db.Model):
     SID = db.Column(db.Integer, primary_key=True)
     Sname = db.Column(db.String(128))
-    Courses = 
+    
 
 class Instructor(db.Model):
     TID = db.Column(db.Integer, primary_key=True)

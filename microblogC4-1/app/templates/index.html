@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Hi, this is our 2020Spring course schedule</h1>
+<table>
+    <tr>
+        <th>Classroom</th>
+        <th>CourseCode</th>
+        <th>CourseTitle</th>
+        <th>Credits</th>
+        <th>Instructor</th>
+        <th>CourseFormat</th>
+    </tr>
+    {% for row in myDat %}
+    <tr>
+        <td>{{ row.Classroom }} </td>
+        <td>{{ row.CourseCode }}</td>
+        <td>{{ row.CourseTitle }}</td>
+        <td>{{ row.Cr }}</td>
+        <td>{{ row.Instructor}}</td>
+        <td>{{ row.CourseFormat}}</td>
+    </tr>
+
+
+    {% endfor %}
+</table>
+{% endblock %}
