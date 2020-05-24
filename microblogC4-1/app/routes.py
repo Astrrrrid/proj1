@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app import db
-from app.models import Course
+from app.models import Course, Enrolls, Student, Instructs, Instructor
 from app import models
 import json
 import os
@@ -18,7 +18,7 @@ app.config["FILE_UPLOADS"] = "/Users/Astrid/project1/microblogC4/app/static/file
 
 
 def getExcel(path):
-    return json.load(open("/Users/Astrid/project1/test.json", "r"))
+    return json.load(open("/Users/Astrid/project1/test2.json", "r"))
 
 @app.route('/')
 def index():
@@ -91,7 +91,7 @@ def update(baseName):
             if oldRecord.session_ID == newRecord['SessionID'] and oldRecord != newRecord:
                 db.session.delete(oldRecord)
                 alternate = Course(Course_title=newRecord['CourseTitle'],Classroom=newRecord['Classroom'],Course_code=newRecord['CourseCode'],Credits=newRecord['Cr'],
-                Instructor=newRecord['Instructor'],Format=newRecord['CourseFormat'], session_ID=newRecord['SessionID'])
+                Format=newRecord['CourseFormat'], session_ID=newRecord['SessionID'])
                 db.session.add(alternate)
                 db.session.commit()
                 
