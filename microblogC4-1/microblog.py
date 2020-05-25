@@ -1,5 +1,6 @@
 from app import app, db
-from app.models import Course
+#from app.models import Course
+from app.models import Course, Enrolls, Student, Instructs, Instructor
 
 
 @app.shell_context_processor

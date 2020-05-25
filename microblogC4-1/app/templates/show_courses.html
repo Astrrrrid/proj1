@@ -5,21 +5,23 @@
 <h1>This is our 2020Spring course schedule by clicking show courses</h1>
 <table>
     <tr>
-        <th>Classroom</th>
-        <th>Course Code</th>
-        <th>Course Title</th>
-        <th>Credits</th>
-        <th>Instructor</th>
-        <th>Course Format</th>
+        <th>  Classroom  </th>
+        <th>  Course Code  </th>
+        <th>  Session Code  </th>
+        <th>  Course Title  </th>
+        <th>  Credits  </th>
+        <th>  Instructor  </th>
+        <th>  Course Format  </th>
     </tr>
     {% for row in myDat %}
     <tr>
         <td>{{ row.Classroom }} </td>
-        <td>{{ row.CourseCode }}</td>
-        <td>{{ row.CourseTitle }}</td>
-        <td>{{ row.Cr }}</td>
+        <td>{{ row.Course_code }}</td>
+        <td>{{ row.session_ID}}</td>
+        <td>{{ row.Course_title }}</td>
+        <td>{{ row.Credits }}</td>
         <td>{{ row.Instructor}}</td>
-        <td>{{ row.CourseFormat}}</td>
+        <td>{{ row.Format}}</td>
     </tr>
 
 

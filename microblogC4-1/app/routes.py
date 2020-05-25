@@ -21,6 +21,7 @@ def getExcel(path):
     return json.load(open("/Users/Astrid/project1/test2.json", "r"))
 
 @app.route('/')
+@app.route('/index')
 def index():
     #Course = {'cTitle': 'Some'}
 
