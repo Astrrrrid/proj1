@@ -1,13 +1,15 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app import db
-from app.models import Course, Enrolls, Student, Instructs, Instructor
+from app.models import Course, Enrolls, Student, Instructs, Instructor, colNames
 from app import models
 import json
 import os
 import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile
+import requests, hashlib, time
+from collections import defaultdict 
 
 from flask import request
 #from werkzeug import secure_filename
@@ -83,8 +85,9 @@ def upload_file():
             return redirect(request.url)
    return render_template('upload.html')
 
+#function update: loop over the list of dict from json file, for each row use the course Code to search for the matching courseid, update the row with json file, do a test by direct to show course
 
-def update(baseName):
+def update(baseName, tablename):
     oldDF = models.Course.query.all()
     newDF = json.load(open(app.config["FILE_UPLOADS"]+'/'+ baseName +".json", "r"))
     for oldRecord in oldDF:
@@ -98,9 +101,54 @@ def update(baseName):
                 
 
 
+#def newFunction():
+    #df = pd.read_csv('students.csv', delimiter=',')
+    #LIST = [list(row) for row in df.values]
+#for row in table:
+    #T = getTable("Course")
+    
+#for key in row.keys():
+     #if there is conflicts to update
+     #pass
+#else:
+#   newrow = T(row)
 
 
 
-#function update: loop over the list of dict from json file, for each row use the course Code to search for the matching courseid, update the row with json file, do a test by direct to show course
+@app.route('/downloadTable/<tname>')
+def downloadTable(tname=None):
+  
+    thoseTables=["Course", "Enrolls", "Instructs", "Student", "Instructor", "Conflicts"]
+    if any(name == tname for name in thoseTables):
+        if tname=='Student':
+            uniqueStr = hashlib.md5((str(time.time())+"anotherString").encode("utf8")).hexdigest()
+        #   df1 = pd.read_sql(models.Student.query.all(), query.session.bind)
+   
+           
+            dbList = models.Student.query.all()
 
+            
+            listS = defaultdict(list)
+            
+            for row in dbList: 
+                for col in colNames["Student"]:
+                    listS[col].append(getattr(row, col))
+        #   df = models.Student.query.all()
+        # app.static_path <-- this is local file folder
+        # app.static_url <--download link prefix
+         #jsfile = os.path.join(app.static_path, "hellow.js")
+
+         
+            #df2.to_csv('static/tmp/Students{}.csv'.format(uniqueStr),index=False)
+
+            df2 = pd.DataFrame(listS)
+            path=os.path.join(app.static_folder, 'Students{}.csv'.format(uniqueStr))
+            df2.to_csv(path, index=False)
+            fileUrl = os.path.join(app.static_url, '/Students{}.csv'.format(uniqueStr))
+            return render_template('download_table.html', title = 'links for tables', studentTable=fileUrl)
+    else:
+        return "Sorry <html><head></head><body><p>no such table<p><body></html>"
+
+
+# /DownloadTable?tname=Student
 

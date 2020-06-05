@@ -7,15 +7,18 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 
+colNames = {"Student":["SID", "Sname", "Semail", "Address", "Dpt", "GradDate"], "Course":["Classroom","Course_code", "session_ID", "Course_title", "Credits", "Format"]} 
+
+
 Enrolls = db.Table('Enrolls',
     db.Column('SID', db.Integer, db.ForeignKey('student.SID'), primary_key=True),
-    db.Column('session_ID', db.Integer, db.ForeignKey('course.session_ID'), primary_key=True),
+    db.Column('session_ID', db.String(32), db.ForeignKey('course.session_ID'), primary_key=True),
     db.Column('Status', db.String(32)) # -- student is on waitlist with a number, or auditing, or registrated with credits
 )
 
 Instructs = db.Table('Instructs',
     db.Column('TID', db.Integer, db.ForeignKey('instructor.TID'), primary_key=True),
-    db.Column('session_ID', db.Integer, db.ForeignKey('course.session_ID'), primary_key=True),
+    db.Column('session_ID', db.String(32), db.ForeignKey('course.session_ID'), primary_key=True),
     db.Column('PrimaryTeach', db.Boolean, nullable=True, default=False) # -- the host who is in charge of the course and leads all speakers 
 )
 
@@ -54,6 +57,20 @@ class Instructor(db.Model):
     Dpt = db.Column(db.String(32))
     instruction = db.relationship('Course', secondary=Instructs, lazy='dynamic', backref=db.backref('instructors'))
 
+class Conflicts(db.Model):
+    session_ID = db.Column(db.String(32),  db.ForeignKey('course.session_ID'), primary_key=True )
+    Block = db.Column(db.Boolean, default=True)
+    TimeStart = db.Column(db.Time )#, timezone=False)
+    Duration = db.Column(db.Interval)#, second_precision=None, day_precision=None)
+    #TimeEnd = db.Column(db.Time, timezone=False)
+
+    Mon = db.Column(db.Boolean, default=False)
+    Tue = db.Column(db.Boolean, default=False)
+    Wed = db.Column(db.Boolean, default=False)
+    Thu = db.Column(db.Boolean, default=False)
+    Fri = db.Column(db.Boolean, default=False)
+    Classroom = db.Column(db.String(32))
+    Instructor = db.Column(db.String(48))
 
 
 
