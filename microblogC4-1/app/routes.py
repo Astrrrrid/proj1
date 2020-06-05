@@ -144,8 +144,8 @@ def downloadTable(tname=None):
             df2 = pd.DataFrame(listS)
             path=os.path.join(app.static_folder, 'Students{}.csv'.format(uniqueStr))
             df2.to_csv(path, index=False)
-            fileUrl = os.path.join(app.static_url, '/Students{}.csv'.format(uniqueStr))
-            return render_template('download_table.html', title = 'links for tables', studentTable=fileUrl)
+            #fileUrl = os.path.join(app.static_url, '/Students{}.csv'.format(uniqueStr))
+            return render_template('download_table.html', title = 'links for tables') # studentTable=fileUrl)
     else:
         return "Sorry <html><head></head><body><p>no such table<p><body></html>"
 
