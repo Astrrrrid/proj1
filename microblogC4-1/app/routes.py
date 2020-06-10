@@ -144,7 +144,7 @@ def downloadTable(tname=None):
         path=os.path.join(app.static_folder, tname+'{}.csv'.format(uniqueStr))
         df2.to_csv(path, index=False)
         fileUrl = parse.urljoin(app.static_url_path + '/', tname+'{}.csv'.format(uniqueStr))
-        return render_template('download_page.html', title = 'links for csv', tableLink=fileUrl)
+        return render_template('download_page.html', title = 'links for csv', tableLink=fileUrl, tableName=tname)
 
     else:
         return "Sorry <html><head></head><body><p>no such table<p><body></html>"
