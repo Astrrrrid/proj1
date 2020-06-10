@@ -7,7 +7,11 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 
-colNames = {"Student":["SID", "Sname", "Semail", "Address", "Dpt", "GradDate"], "Course":["Classroom","Course_code", "session_ID", "Course_title", "Credits", "Format"]} 
+colNames = {"Student":["SID", "Sname", "Semail", "Address", "Dpt", "GradDate"], "Course":["Classroom","Course_code", "session_ID", "Course_title", "Credits", "Format"],
+    "Instructor":["TID", "Tname", "Temail", "Address", "Dpt"],
+    "Conflicts":["session_ID","Block", "TimeStart","Duration", "Mon","Tue","Wed", "Thu", "Fri", "Classroom","Instructor"],
+    "Enrolls":["SID", "session_ID", "Status"],
+    "Instructs":["TID", "session_ID", "PrimaryTeach"]} 
 
 
 Enrolls = db.Table('Enrolls',

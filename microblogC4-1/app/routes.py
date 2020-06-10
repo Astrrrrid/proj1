@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app import db
-from app.models import Course, Enrolls, Student, Instructs, Instructor, colNames
+from app.models import Course, Enrolls, Student, Instructs, Instructor, Conflicts, colNames
 from app import models
 import json
 import os
@@ -9,12 +9,15 @@ import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile
 import requests, hashlib, time
-from collections import defaultdict 
+from collections import defaultdict
+import urllib
 
 from flask import request
 #from werkzeug import secure_filename
 
 from werkzeug.utils import secure_filename
+
+parse= urllib.parse
 
 app.config["FILE_UPLOADS"] = "/Users/Astrid/project1/microblogC4/app/static/files/uploads"
 
@@ -117,23 +120,19 @@ def update(baseName, tablename):
 
 @app.route('/downloadTable/<tname>')
 def downloadTable(tname=None):
-  
+    
     thoseTables=["Course", "Enrolls", "Instructs", "Student", "Instructor", "Conflicts"]
     if any(name == tname for name in thoseTables):
-        if tname=='Student':
-            uniqueStr = hashlib.md5((str(time.time())+"anotherString").encode("utf8")).hexdigest()
-        #   df1 = pd.read_sql(models.Student.query.all(), query.session.bind)
-   
-           
-            dbList = models.Student.query.all()
+        uniqueStr = hashlib.md5((str(time.time())+"anotherString").encode("utf8")).hexdigest()
+        dbList = getattr(models, tname).query.all()
 
             
-            listS = defaultdict(list)
+        listS = defaultdict(list)
             
-            for row in dbList: 
-                for col in colNames["Student"]:
-                    listS[col].append(getattr(row, col))
-        #   df = models.Student.query.all()
+        for row in dbList: 
+            for col in colNames[tname]:
+                listS[col].append(getattr(row, col))
+       
         # app.static_path <-- this is local file folder
         # app.static_url <--download link prefix
          #jsfile = os.path.join(app.static_path, "hellow.js")
@@ -141,14 +140,17 @@ def downloadTable(tname=None):
          
             #df2.to_csv('static/tmp/Students{}.csv'.format(uniqueStr),index=False)
 
-            df2 = pd.DataFrame(listS)
-            path=os.path.join(app.static_folder, 'Students{}.csv'.format(uniqueStr))
-            df2.to_csv(path, index=False)
-            #fileUrl = os.path.join(app.static_url, '/Students{}.csv'.format(uniqueStr))
-            return render_template('download_table.html', title = 'links for tables') # studentTable=fileUrl)
+        df2 = pd.DataFrame(listS)
+        path=os.path.join(app.static_folder, tname+'{}.csv'.format(uniqueStr))
+        df2.to_csv(path, index=False)
+        fileUrl = parse.urljoin(app.static_url_path + '/', tname+'{}.csv'.format(uniqueStr))
+        return render_template('download_page.html', title = 'links for csv', tableLink=fileUrl)
+
     else:
         return "Sorry <html><head></head><body><p>no such table<p><body></html>"
+    
 
-
-# /DownloadTable?tname=Student
+@app.route('/downloadTable/')
+def show_downloads():
+    return render_template('download_table.html', title = 'links for tables') 
 
