@@ -76,11 +76,14 @@ def upload_file():
             print("table saved")
             pddf=pd.read_excel(app.config["FILE_UPLOADS"]+'/'+ffilename)
             dictdf = pddf.to_dict('records')
+            updateCourse(dictdf) # !!! this is the new function to update a course table
+
             baseName = os.path.splitext(os.path.basename(ffilename))[0]
             json.dump(dictdf, open(app.config["FILE_UPLOADS"]+'/'+ baseName +".json", "w"), sort_keys=True, default=str)
             print("dumped to a json file")
-            update(baseName)
+            #update(baseName)
             #return redirect(request.url)
+
             Courses = models.Course.query.all()
             return render_template('show_courses.html', title='the new one',  myDat=Courses) 
         else:
@@ -90,9 +93,13 @@ def upload_file():
 
 #function update: loop over the list of dict from json file, for each row use the course Code to search for the matching courseid, update the row with json file, do a test by direct to show course
 
-def update(baseName, tablename):
+def update(baseName):
     oldDF = models.Course.query.all()
+    #oldIDs = models.Course.query.session_ID()
     newDF = json.load(open(app.config["FILE_UPLOADS"]+'/'+ baseName +".json", "r"))
+    oldSessionIDs = []
+    for oldRecord in oldDF:
+        oldSessionIDs.append(oldRecord.session_ID)
     for oldRecord in oldDF:
         for newRecord in newDF:
             if oldRecord.session_ID == newRecord['SessionID'] and oldRecord != newRecord:
@@ -101,6 +108,31 @@ def update(baseName, tablename):
                 Format=newRecord['CourseFormat'], session_ID=newRecord['SessionID'])
                 db.session.add(alternate)
                 db.session.commit()
+            elif not(newRecord['SessionID'] in oldSessionIDs): # in oldIDs
+
+                new = Course(Course_title=newRecord['CourseTitle'],Classroom=newRecord['Classroom'],Course_code=newRecord['CourseCode'],Credits=newRecord['Cr'],
+                Format=newRecord['CourseFormat'], session_ID=newRecord['SessionID'])
+                db.session.add(new)
+                db.session.commit()
+
+def updateCourse(dictdf):
+    #mydf=pd.read_csv('newCourse.csv', delimiter=',')
+    #Dicts=mydf.to_dict('records')
+    Dicts = dictdf
+    for x in Dicts:
+        match = x["SessionID"]
+        found = Course.query.filter_by(session_ID=match)
+        if found.count()>0:
+            aCourse=found[0]
+            for k,v in x.items():
+                setattr(aCourse, k, v)
+            db.session.add(aCourse)
+            db.session.commit()
+        else:
+            new = Course(Course_title=x['CourseTitle'],Classroom=x['Classroom'],Course_code=x['CourseCode'],Credits=x['Cr'],
+            Format=x['CourseFormat'], session_ID=x['SessionID'])
+            db.session.add(new)
+            db.session.commit()
                 
 
 
