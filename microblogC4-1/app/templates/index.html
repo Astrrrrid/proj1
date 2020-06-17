@@ -1,30 +1,13 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-<h1>Hi, this is our 2020Spring course schedule</h1>
-<table>
-    <tr>
-        <th>  Classroom  </th>
-        <th>  Course Code  </th>
-        <th>  Session Code  </th>
-        <th>  CourseTitle  </th>
-        <th>  Credits  </th>
-        <th>  Instructor  </th>
-        <th>  CourseFormat  </th>
-    </tr>
-    {% for row in myDat %}
-    <tr>
-        <td>{{ row.Classroom }} </td>
-        <td>{{ row.Course_code }}</td>
-        <td>{{ row.session_ID}}</td>
-        <td>{{ row.Course_title }}</td>
-        <td>{{ row.Credits }}</td>
-        <td>{{ row.Instructor}}</td>
-        <td>{{ row.Format}}</td>
-    </tr>
-
-
-    {% endfor %}
-</table>
-{% endblock %}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>*******something!</h1>
+    <p>This file has been created on the host machine and has been mounted into the Nginx Docker Container!</p>
+</body>
+</html>

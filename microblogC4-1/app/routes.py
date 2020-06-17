@@ -21,6 +21,8 @@ parse= urllib.parse
 
 app.config["FILE_UPLOADS"] = "/Users/Astrid/project1/microblogC4/app/static/files/uploads"
 
+tablesAndTheirPrimaries = {"Instructor": "TID", "Student": "SID", "Course": "session_ID"}
+
 
 def getExcel(path):
     return json.load(open("/Users/Astrid/project1/test2.json", "r"))
@@ -34,10 +36,29 @@ def index():
     return render_template('index.html', title='Home',  myDat=Courses)
 
 
-@app.route('/show_courses/')
+@app.route('/show/')
+def show_table():
+    #Courses = models.Course.query.all()
+    
+        
+    return render_template('show.html', title='Table list')
+
+@app.route('/show/courses/')
 def show_courses():
     Courses = models.Course.query.all()
-    return render_template('show_courses.html', title='Course Schedule',  myDat=Courses) 
+    return render_template('show_courses.html', title='the new one',  myDat=Courses)
+
+@app.route('/show/students/')
+def show_students():
+    Students = models.Student.query.all()
+    return render_template('show_students.html', title='the new one',  myDat=Students)
+
+@app.route('/show/instructors/')
+def show_instructors():
+    Instructors = models.Instructor.query.all()
+    return render_template('show_instructors.html', title='the new one',  myDat=Instructors)
+
+
 
 @app.route('/upload_spreasheet/')
 def upload_spreasheet():
@@ -56,13 +77,25 @@ def allowed_table(filename):
     else:
         return False
 
+def allowed_csv_table(filename):
+
+    if not "." in filename:
+        return False
+
+    ext = filename.rsplit(".", 1)[1]
+
+    if ext.upper() == "CSV":
+        return True
+    else:
+        return False
+
 
 @app.route('/upload')
 def upload_file2():
    return render_template('upload.html')
 	
 #@app.route('/uploader', methods = ['GET', 'POST'])
-@app.route('/uploader', methods=['GET', 'POST'])
+@app.route('/uploaderOld', methods=['GET', 'POST'])
 def upload_file():
    if request.method == 'POST':
       if request.files:
@@ -115,12 +148,92 @@ def update(baseName):
                 db.session.add(new)
                 db.session.commit()
 
-def updateCourse(dictdf):
-    #mydf=pd.read_csv('newCourse.csv', delimiter=',')
-    #Dicts=mydf.to_dict('records')
-    Dicts = dictdf
+@app.route('/uploader', methods=['GET', 'POST'])
+def updateCSV1(primary="SessionID"):
+    if request.method == 'POST':
+      if request.files:
+        f = request.files['file']
+        if f.filename == "":
+            print("No filename")
+            return redirect(request.url)
+        if allowed_csv_table(f.filename):
+            ffilename = secure_filename(f.filename)
+            f.save(os.path.join(app.config["FILE_UPLOADS"], ffilename))
+            print("table saved")
+            #pddf=pd.read_excel(app.config["FILE_UPLOADS"]+'/'+ffilename)
+
+            mydf=pd.read_csv(app.config["FILE_UPLOADS"]+'/'+ffilename, delimiter=',')
+            Dicts = mydf.to_dict('records')
+
+            
+            primary="session_ID"
+            for k in tablesAndTheirPrimaries:
+                if k in ffilename:
+                    primary=tablesAndTheirPrimaries[k]
+            
+            updateCSV2(primary, Dicts) # !!! this is the new function to update a course table
+
+           
+
+            #Courses = models.Course.query.all()
+
+            for v in tablesAndTheirPrimaries:
+                if primary==v:
+                    modifiedTable = getattr(models,get_key(tablesAndTheirPrimaries,v)).query.all()
+            return render_template('show.html', title='the new one')
+            '''if get_key(tablesAndTheirPrimaries,v)=="Course":
+                    return show_courses()
+                elif get_key(tablesAndTheirPrimaries,v)=="Student":
+                    return show_students()
+                elif get_key(tablesAndTheirPrimaries,v)=="Instructor":
+                    return render_template('show_instructors.html', title='the new one',  myDat=modifiedTable)'''
+            
+
+
+        else:
+            print("pls upload a correct file")
+            return redirect(request.url)
+    return render_template('upload.html')
+
+
+
+def updateCSV2(primary, Dicts):
+    
     for x in Dicts:
-        match = x["SessionID"]
+        match = x[primary]
+        if primary=="session_ID":
+            found = Course.query.filter_by(session_ID=match)
+        elif primary=="SID":
+            found = Student.query.filter_by(SID=match)
+        elif primary=="TID":
+            found = Instructor.query.filter_by(TID=match)
+        if found.count()>0:
+            obj=found[0]
+            for k,v in x.items():
+                setattr(obj, k, v)
+            db.session.add(obj)
+            db.session.commit()
+        else:
+            for k,v in tablesAndTheirPrimaries:
+                if v==primary:
+                    newOne=getattr(models,k)
+            
+            for k, v in x.items():
+                setattr(newOne, k,v)
+            db.session.add(newOne)
+            db.session.commit()
+
+def get_key(my_dict,val): 
+    for key, value in my_dict.items(): 
+         if val == value: 
+             return key
+
+"""def updateCourse(dictdf, primary="SessionID"):
+    
+    Dicts = dictdf
+    
+    for x in Dicts:
+        match = x[primary]
         found = Course.query.filter_by(session_ID=match)
         if found.count()>0:
             aCourse=found[0]
@@ -132,7 +245,7 @@ def updateCourse(dictdf):
             new = Course(Course_title=x['CourseTitle'],Classroom=x['Classroom'],Course_code=x['CourseCode'],Credits=x['Cr'],
             Format=x['CourseFormat'], session_ID=x['SessionID'])
             db.session.add(new)
-            db.session.commit()
+            db.session.commit()"""
                 
 
 

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>This is our Fei Tian faculty</h1>
+<table>
+    <tr>
+        <th>  Professor  </th>
+        <th>  Department  </th>
+        <th>  School ID  </th>
+        <th>  email  </th>
+        <th>  Address  </th>
+
+
+    </tr>
+    {% for row in myDat %}
+    <tr>
+        <td>{{ row.Tname }} </td>
+        <td>{{ row.Dpt }}</td>
+        <td>{{ row.TID }}</td>
+        <td>{{ row.Temail}}</td>
+        <td>{{ row.Address }}</td>
+
+
+    </tr>
+
+
+    {% endfor %}
+</table>
+{% endblock %}

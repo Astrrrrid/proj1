@@ -56,7 +56,8 @@ class Student(db.Model):
 class Instructor(db.Model):
     TID = db.Column(db.Integer, primary_key=True)
     Tname = db.Column(db.String(128))
-    Temail = db.Column(db.String(300))
+    Temail = db.Column(db.String(300))#required=FALSE
+
     Address = db.Column(db.Text)
     Dpt = db.Column(db.String(32))
     instruction = db.relationship('Course', secondary=Instructs, lazy='dynamic', backref=db.backref('instructors'))
@@ -65,7 +66,9 @@ class Conflicts(db.Model):
     session_ID = db.Column(db.String(32),  db.ForeignKey('course.session_ID'), primary_key=True )
     Block = db.Column(db.Boolean, default=True)
     TimeStart = db.Column(db.Time )#, timezone=False)
+
     Duration = db.Column(db.Interval)#, second_precision=None, day_precision=None)
+
     #TimeEnd = db.Column(db.Time, timezone=False)
 
     Mon = db.Column(db.Boolean, default=False)

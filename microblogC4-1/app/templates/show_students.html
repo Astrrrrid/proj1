@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>This is our 2020Spring course schedule by clicking show courses</h1>
+<table>
+    <tr>
+        <th>  Student  </th>
+        <th>  College  </th>
+        <th>  School ID  </th>
+        <th>  email  </th>
+        <th>  Address  </th>
+        <th>  Expected Graduation  </th>
+       
+    </tr>
+    {% for row in myDat %}
+    <tr>
+        <td>{{ row.Sname }} </td>
+        <td>{{ row.Dpt }}</td>
+        <td>{{ row.SID}}</td>
+        <td>{{ row.Semail }}</td>
+        <td>{{ row.Address }}</td>
+        <td>{{ row.GradDate}}</td>
+        
+    </tr>
+
+
+    {% endfor %}
+</table>
+{% endblock %}

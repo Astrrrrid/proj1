@@ -1,0 +1,76 @@
+Classroom,Course_code,session_ID,Course_title,Credits,Format
+417,BMS211,BMS21101,Anatomy,3.0,lecture
+D430,BSC102,BSC102,General Biology II,3.0,Lecture
+Rally,Nonsense,BSC102L,Dress Preppy Day! ,1.0,Festival
+D322,CHM102,CHM102,General Chemistry II,3.0,Lecture
+Science Lab,CHM102L,CHM102L,General Chemistry II Lab,1.0,Laboratory
+D427,BMS102,BMS102,Medical Terminology,2.0,Lecture
+D430,BSC212,BSC212,Human Anatomy and Physiology II,3.0,Lecture
+Science Lab,BSC212L,BSC212L,Human Anatomy and Physiology II Lab,1.0,Laboratory
+D427,BSC335,BSC335,Introduction of Immunology,3.0,Lecture
+D430,BMS232,BMS232,Life Span Developmental Psychology,3.0,Lecture
+TBD,BSC332,BSC332,Developmental Biology,3.0,Lecture
+D321,CIS105,CIS105,Data Structure and Algorithms,3.0,Lecture
+D325,MAT106,MAT106,Calculus II,3.0,Lecture
+D430,BUS213,BUS213,Microeconomics,3.0,Lecture
+D319,CIS221,CIS221,Database Systems,3.0,Lecture
+D319,STA211,STA211,Statistical Theory and Methods,3.0,Lecture
+AWB Lab ,DAS151A,DAS151A,Real-time Data Analytics A ,1.0,Studio/Laboratory 
+AWB Lab ,DAS151B,DAS151B,Real-time Data Analytics B,1.0,Studio/Laboratory 
+AWB Lab ,DAS152A,DAS152A,Applied Real-time Data Analytics A ,1.0,Studio/Laboratory 
+AWB Lab ,DAS152B,DAS152B,Applied Real-time Data Analytics B,0.0,Studio/Laboratory 
+D432,ART101B,ART101B,Perspective B,2.0,Lecture 
+D432,ART102B,ART102B,Art Anatomy B,2.0,Lecture 
+D430,BMS135,BMS135,Introduction to Psychology,3.0,Lecture 
+D322,BSC100,BSC100,Principles of Biology,3.0,Lecture 
+Science Lab,BSC100L,BSC100L,Principles of Biology Lab,1.0,Laboratory
+D330,DAN242G,DAN242G,History of Dance,3.0,Lecture 
+D429,DRP101R,DRP101R,Drawing I,2.0,Studio
+D429,DRP102B,DRP102B,Painting B,2.0,Studio
+D319,ENG103 - V2,ENG103 - V2,Effective English,3.0,Lecture 
+D325,ENG104,ENG104,Public Speaking,3.0,Lecture 
+D319,ENG105,ENG105,Effective Reading and Analysis,3.0,Lecture 
+D319,HUM125,HUM125,US Society and Government,3.0,Lecture 
+D330,ENG304,ENG304,Writing for Media,3.0,Lecture 
+D319,HUM105,HUM105,World Civilization,3.0,Lecture 
+D427,HUM132,HUM132,Philosophical Perspectives II,1.0,Lecture 
+D325,MAT101,MAT101,Applied Math,3.0,Lecture 
+D330,MUS211B,MUS211B,Advanced Music Theory B,2.0,Lecture 
+D330,MUS240B,MUS240B,History of Western Music B,2.0,Lecture 
+D330,MUS240G,MUS240G01,History of Music,3.0,Lecture 
+D330,MUS240G,MUS240G02,History of Music,,Lecture 
+D322,STA101,STA101,Principles of Probability and Statistics,3.0,Lecture 
+D330,MUS243,MUS243,History of Chinese Music,3.0,Lecture
+B105,DAN121R ,DAN121R01,Introduction to Repertoire of Dance: Classical Ballet,1.0,Studio/Laboratory
+B105,DAN121R ,DAN121R02,Introduction to Repertoire of Dance: Classical Ballet,,Studio/Laboratory
+B103,DAN121R ,DAN121R03,Introduction to Repertoire of Dance: CCD,,Studio/Laboratory
+B105,DAB101R,DAB101R01,Fundamentals of Classical Ballet I,3.0,Studio/Laboratory
+B106,DAB101R,DAB101R02,Fundamentals of Classical Ballet I,,Studio/Laboratory
+B106,DAB201R,DAB201R,Fundamentals of Classical Ballet II,3.0,Studio/Laboratory
+B101,DAB202R,DAB202R,Ballet - Pointe & Partnering II,1.0,Studio/Laboratory
+B104,DAB321R,DAB321R,Repertory and Rehearsal II: Classical Ballet,1.5,Studio/Laboratory
+B106,DAB301R,DAB301R,Fundamentals of Classical Ballet III,4.0,Studio/Laboratory
+B101,DAB302R,DAB302R,Ballet - Pointe & Partnering III,2.0,Studio/Laboratory
+B105,DAB312B,DAB312B,Choreography I: Classical Ballet,2.0,Studio/Laboratory
+B104,DAB421R,DAB421R,Repertory and Rehearsal III: Classical Ballet,1.5,Studio/Laboratory
+B103,DAN101R,DAN101R,Fundamentals of Classical Chinese Dance I,3.0,Studio/Laboratory
+B101,DAN301R,DAN301R,Fundamentals of Classical Chinese Dance III,4.0,Studio/Laboratory
+B104,DAN312B,DAN312B,Choreography II: Classical Chinese Dance,2.0,Studio/Laboratory
+B101,DAN421R,DAN421R,Repertory and Rehearsal III: Classical Chinese Dance,2.0,Studio/Laboratory
+D430,BUS121,BUS121,Fundamentals of Arts Management,3.0,Lecture
+B105,DAN311B,DAN311B,Dance Pedagogy II,3.0,Lecture
+D325,DAN511,DAN511,Advanced Pedagogy II,2.0,Lecture
+B104,DAN551,DAN551,Integration of Dance and Music,1.0,Studio/Laboratory
+D430,DAN561,DAN561,Dance in Cultural Context,2.0,Seminar
+D325,LAS550,LAS550,Research Methodology in the Arts,2.0,Lecture
+B106,DAB501R ,DAB501R ,Advanced Classical Ballet I,4.0,Studio/Laboratory
+TBD,DAB521R,DAB521R,Repertory I: Classical Ballet,2.0,Studio/Laboratory
+B102,DAN501R,DAN501R,Advanced Classical Chinese Dance I,4.0,Studio/Laboratory
+B104,DAN521R,DAN521R,Repertory I: Classical Chinese Dance,2.0,Studio/Laboratory
+B102,DAN601R,DAN601R,Advanced Classical Chinese Dance II,4.0,Studio/Laboratory
+TBD,DAN612,DAN612,Graduate Choreography II: Classical Chinese Dance,2.0,Studio/Laboratory
+B104,DAN621R,DAN621R,Repertory II : Classical Chinese Dance,2.0,Studio/Laboratory
+D325,DAN623,DAN623,Dance Kinesiology,2.0,Lecture
+TBD,DAN555,DAN555,Graduate Practicum,4.0,Independent
+TBD,DAN650,DAN650,Master’s Project,6.0,Independent
+Pool,NewAddedCourse,NewAddedCourse01,Swimming is the Best,15.0,Lab?
